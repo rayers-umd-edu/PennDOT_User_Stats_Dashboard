@@ -61,8 +61,19 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:8px;borde
 <section class="cards" id="cards"></section>
 <section class="panel">
   <div class="panelTitle">Top organizations by RITIS PDA usage, broken down by tool <span class="interactionCue">Select a tool in the legend to highlight its results.</span></div>
-  <div class="controls"><label for="limit">Show top organizations:</label><select id="limit"><option>3</option><option selected>5</option><option value="999">All</option></select></div>
+  <div class="controls"><label for="limit">Show top organizations:</label><select id="limit"><option value="5">Top 5</option><option value="10" selected>Top 10</option><option value="20">Top 20</option><option value="999">All</option></select></div>
   <div id="orgChart"></div><div class="legend" id="legend"></div>
+</section>
+<section class="panel">
+  <div class="panelTitle">Monthly RITIS PDA activity</div>
+  <div class="controls"><label for="monthWindow">Time window:</label><select id="monthWindow"><option value="12" selected>Last 12 months</option><option value="24">Last 24 months</option><option value="48">Last 48 months</option><option value="9999">All months</option></select></div>
+  <div id="monthChart"></div>
+  <div class="note chartNote">Blue bars use the left axis for PDA reports; the gold line uses the right axis for unique PDA users active in each month.</div>
+</section>
+<section class="panel">
+  <div class="panelTitle">Aggregated PDA usage table</div>
+  <div class="controls"><input id="filter" aria-label="Filter organization or tool" placeholder="Filter organization or tool"><button id="clear" type="button">Clear</button></div>
+  <div class="tablewrap"><table><thead><tr><th>Organization</th><th>Tool</th><th>Usage events</th></tr></thead><tbody id="tbody"></tbody></table></div>
 </section>
 <section class="panel">
   <div class="panelTitle">Trip Analytics and Signal Analytics reports by organization <span class="interactionCue">Choose an analytics tool to compare report activity.</span></div>
@@ -74,17 +85,6 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:8px;borde
   </div>
   <div id="analyticsOrgChart"></div>
   <div class="note chartNote" id="analyticsChartNote"></div>
-</section>
-<section class="panel">
-  <div class="panelTitle">Monthly RITIS PDA activity</div>
-  <div class="controls"><label for="monthWindow">Time window:</label><select id="monthWindow"><option value="24" selected>Last 24 months</option><option value="60">Last 60 months</option><option value="9999">All months</option></select></div>
-  <div id="monthChart"></div>
-  <div class="note chartNote">Blue bars use the left axis for PDA reports; the gold line uses the right axis for unique PDA users active in each month.</div>
-</section>
-<section class="panel">
-  <div class="panelTitle">Aggregated PDA usage table</div>
-  <div class="controls"><input id="filter" aria-label="Filter organization or tool" placeholder="Filter organization or tool"><button id="clear" type="button">Clear</button></div>
-  <div class="tablewrap"><table><thead><tr><th>Organization</th><th>Tool</th><th>Usage events</th></tr></thead><tbody id="tbody"></tbody></table></div>
 </section>
 <p class="note source"><strong>Source and scope:</strong> CATT Lab RITIS Support Team. Pennsylvania workbooks generated July 21, 2026. PDA records cover July 2024 through July 2026; Trip Analytics records cover January 2024 through July 2026. Signal Analytics KPIs sum the intersections and days requested in the supplied Signal Analytics workbook.</p>
 </div>
