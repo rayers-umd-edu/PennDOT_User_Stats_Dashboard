@@ -116,10 +116,15 @@ function renderCards(){
  const cards=[
   {cls:"blue",href:"#pda-org-panel",aria:"Jump to top organizations by RITIS PDA usage",tag:"Probe Data Analytics",metric:metrics.pdaReports,label:"total PDA reports run",detail:`${fmt(metrics.pdaUsers)} unique users requested PDA analysis`},
   {cls:"lightblue",href:"#pda-table-panel",aria:"Jump to the aggregated PDA usage table",tag:"User reach",metric:metrics.activeRitisUsers,label:"total RITIS users",detail:`PDA activity spans ${fmt(metrics.pdaOrganizations)} organizations`},
-  {cls:"green",href:"#analytics-org-panel",aria:"Jump to Trip Analytics and Signal Analytics reports by organization",tag:"Signal Analytics",metric:metrics.signalsUsers,label:"unique users requested analysis",detail:`${fmt(metrics.signalsIntersections)} intersections • ${fmt(metrics.signalsDays)} days analyzed`},
-  {cls:"green2",href:"#analytics-org-panel",aria:"Jump to Trip Analytics and Signal Analytics reports by organization",tag:"Trip Analytics",metric:metrics.tripUsers,label:"unique users requested analysis",detail:`${fmt(metrics.tripReports)} Trip Reports requested`}
+  {cls:"green",href:"#analytics-org-panel",analyticsTool:"Signal Analytics",aria:"Show Signal Analytics reports by organization",tag:"Signal Analytics",metric:metrics.signalsUsers,label:"unique users requested analysis",detail:`${fmt(metrics.signalsIntersections)} intersections • ${fmt(metrics.signalsDays)} days analyzed`},
+  {cls:"green2",href:"#analytics-org-panel",analyticsTool:"Trip Analytics",aria:"Show Trip Analytics reports by organization",tag:"Trip Analytics",metric:metrics.tripUsers,label:"unique users requested analysis",detail:`${fmt(metrics.tripReports)} Trip Reports requested`}
  ];
- document.getElementById("cards").innerHTML=cards.map(c=>`<a class="card ${c.cls}" href="${c.href}" aria-label="${esc(c.aria)}"><div><div class="kpiTag">${esc(c.tag)}</div><div class="metric">${fmt(c.metric)}</div><div class="label">${esc(c.label)}</div></div><div class="detail">${esc(c.detail)}</div></a>`).join("");
+ document.getElementById("cards").innerHTML=cards.map(c=>`<a class="card ${c.cls}" href="${c.href}"${c.analyticsTool?` data-analytics-tool="${esc(c.analyticsTool)}"`:""} aria-label="${esc(c.aria)}"><div><div class="kpiTag">${esc(c.tag)}</div><div class="metric">${fmt(c.metric)}</div><div class="label">${esc(c.label)}</div></div><div class="detail">${esc(c.detail)}</div></a>`).join("");
+ document.querySelectorAll(".card[data-analytics-tool]").forEach(card=>card.addEventListener("click",()=>{
+  const selector=document.getElementById("analyticsTool");
+  selector.value=card.dataset.analyticsTool;
+  drawAnalyticsOrg();
+ }));
 }
 function orgToolUsage(){const usage={};records.forEach(r=>{const tool=topTools.includes(r.Tool)?r.Tool:"Other tools";usage[r.Organization]??={};usage[r.Organization][tool]=(usage[r.Organization][tool]||0)+r.Usage});return usage}
 const usageByOrg=orgToolUsage();
